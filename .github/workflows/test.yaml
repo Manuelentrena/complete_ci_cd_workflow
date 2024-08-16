@@ -1,0 +1,60 @@
+name: Test
+on:
+    workflow_call:
+
+jobs:
+    test-and-build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: Setup Node Enviroment
+              uses: actions/setup-node@v4
+              with:
+                node-version: 20
+                cache: "npm"
+            - name: Install Dependencies
+              run: npm ci
+            - name: Check for Formatting Errors
+              run: npm run format
+            - name: Check for ESLint Errors
+              run: npm run lint
+            - name: Check for Type Error
+              run: npm run typecheck
+            - name: Build Project
+              run: npm run build
+            - name: Upload Build
+              uses: actions/upload-artifact@v4
+              with:
+                name: build
+                path: .next/
+            - name: Run Unit Tests
+              run: npm run test
+            - name: Upload Report Tests
+              uses: actions/upload-artifact@v4
+              if: always()
+              with:
+                name: coverage
+                path: coverage/
+            - name: Upload Tests to Codecov
+              uses: codecov/codecov-action@v4
+              if: always()
+              with:
+                token: ${{ secrets.CODECOV_TOKEN }}
+            - name: Install Playwright Browsers
+              run: npx playwright install --with-deps
+            - name: Run E2E Tests
+              uses: npm run test:e2e
+            - name: Upload Report Tests E2e
+              uses: actions/upload-artifact@v4
+              if: always()
+              with:
+                name: playwright-report
+                path: playwright-report/
+            - name: Send Slack Message on Failure
+              uses: slackapi/slack-github-action@v1.26.0
+              with:
+                payload-file-path: "./.github/slack/test-failure-slack-payload.json"
+              env:
+                SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+            
