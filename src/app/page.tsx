@@ -8,7 +8,7 @@ export default async function Home() {
   return (
     <main className="main">
       <div>
-        <h2>Fix Bug</h2>
+        <h2>Fix Bug 2</h2>
 
         {flags.isFeatureEnabled("search") && (
           <div>
