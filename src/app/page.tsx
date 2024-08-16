@@ -10,13 +10,16 @@ export default async function Home() {
       <div>
         <h2>Fix Bug</h2>
 
-        {flags.isFeatureEnabled('search') &&
+        {flags.isFeatureEnabled("search") && (
           <div>
             <label htmlFor="input_flag">Input Flat</label>
-            <input id="input_flag" name="input_flag" placeholder="example feature flag" />
+            <input
+              id="input_flag"
+              name="input_flag"
+              placeholder="example feature flag"
+            />
           </div>
-        }
-
+        )}
       </div>
       <Link href="/about">About</Link>
     </main>
