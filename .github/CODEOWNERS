@@ -1,0 +1,5 @@
+* @Manuelentrena
+*.js @Manuelentrena
+*.ts @Manuelentrena
+*.tsx @Manuelentrena
+/e2e/ @EntrenaDev2
