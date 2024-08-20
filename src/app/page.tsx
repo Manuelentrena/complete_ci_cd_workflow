@@ -9,7 +9,7 @@ export default async function Home() {
     <main className="main">
       <div>
         <h2>Fix Bug 2</h2>
-        <p>This is a paragraph</p>
+        <p>This a new is a paragraph</p>
         {flags.isFeatureEnabled("search") && (
           <div>
             <label htmlFor="input_flag">Input Flat</label>
