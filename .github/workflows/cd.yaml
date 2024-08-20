@@ -26,7 +26,7 @@ jobs:
         with:
           publish: npx changeset tag
         env:
-          GITHUB_TOKEN: ${{ secrets.CHANGESETS_TOKEN  }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN  }}
       - run: echo '${{ toJson(steps.changesets.outputs)}}'
       - name: Send a Slack Message for Version PR Updates
         if: steps.changesets.outputs.pullRequestNumber
