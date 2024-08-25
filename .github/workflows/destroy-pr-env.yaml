@@ -33,11 +33,11 @@ jobs:
 
       - name: Get AWS ENV Name
         id: get-env-name
-        run: echo "aws_env=$(aws elasticbeanstalk describe-environments --application-name ${{vars.AWS_EB_APP_NAME}} --environment-names complete-ci-dc-workflow-${{ github.event.issue.number || github.event.pull_request.number }} --query "Environments[0].EnvironmentName" --output text)" >> $GITHUB_OUTPUT
+        run: echo "aws_env=$(aws elasticbeanstalk describe-environments --application-name ${{vars.AWS_EB_APP_NAME}} --environment-names complete-ci-cd-workflow-${{ github.event.issue.number || github.event.pull_request.number }} --query "Environments[0].EnvironmentName" --output text)" >> $GITHUB_OUTPUT
 
       - name: Get AWS ENV Status
         id: get-env-status
-        run: echo "aws_env_status=$(aws elasticbeanstalk describe-environments --application-name ${{vars.AWS_EB_APP_NAME}} --environment-names complete-ci-dc-workflow-${{ github.event.issue.number || github.event.pull_request.number }} --query "Environments[0].Status" --output text)" >> $GITHUB_OUTPUT
+        run: echo "aws_env_status=$(aws elasticbeanstalk describe-environments --application-name ${{vars.AWS_EB_APP_NAME}} --environment-names complete-ci-cd-workflow-${{ github.event.issue.number || github.event.pull_request.number }} --query "Environments[0].Status" --output text)" >> $GITHUB_OUTPUT
 
       - name: Decide if Environment Needs to be Terminated
         id: check-env
